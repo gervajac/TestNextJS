@@ -1,62 +1,57 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
-export const fetchProducts = createAsyncThunk('product/fetchProducts', async ({page}: any) => {
+export const fetchProducts = createAsyncThunk('product/fetchProducts', async ({ page }: any) => {
   const response = await fetch(`http://localhost:3001/data/?page=${!page ? 1 : page}&perPage=5`);
-  console.log(response, "resp")
   const data = await response.json();
   return data;
 });
 
 export const addProduct = createAsyncThunk('product/addProduct', async ({ productoInfo }: any, thunkAPI) => {
-    console.log(productoInfo, "data en la funcion")
-    const response = await fetch('http://localhost:3001/data', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(productoInfo),
-    });
-    console.log(response, "respuestaaaaaa")
-    const data = await response.json();
-    return data;
+  const response = await fetch('http://localhost:3001/data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(productoInfo),
   });
+  const data = await response.json();
+  return data;
+});
 
-  export const deleteProduct = createAsyncThunk('product/deleteProduct', async ({ id, currentPage }: any, thunkAPI) => {
-    const response = await fetch(`http://localhost:3001/data/${id}/?page=${currentPage}&perPage=5`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    console.log(response, "respuestaaaaaa")
-    const data = await response.json();
-    return data;
+export const deleteProduct = createAsyncThunk('product/deleteProduct', async ({ id, currentPage }: any, thunkAPI) => {
+  const response = await fetch(`http://localhost:3001/data/${id}/?page=${currentPage}&perPage=5`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
+  const data = await response.json();
+  return data;
+});
 
-  export const updateProduct = createAsyncThunk('product/updateProduct', async ({ id, productoInfo }: any, thunkAPI) => {
-console.log(id, "idd")
-console.log(productoInfo, "productdata")
-    const response = await fetch(`http://localhost:3001/data/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(productoInfo.productoInfo)
-    });
-    const data = await response.json();
-    return data;
+export const updateProduct = createAsyncThunk('product/updateProduct', async ({ id, productoInfo }: any, thunkAPI) => {
+  const response = await fetch(`http://localhost:3001/data/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(productoInfo.productoInfo)
   });
+  const data = await response.json();
+  return data;
+});
 
+export const changeLanguage = createAction<string>('product/changeLanguage');
 
 const initialState: any = {
   products: [],
   page: 1,
   currentPage: 1,
   totalPages: 1,
+  language: "ESP",
   arrayPages: [],
   totalProducts: []
 };
-
 
 export const productSlice = createSlice({
   name: 'product',
@@ -75,7 +70,6 @@ export const productSlice = createSlice({
         state.products = [...state.products, action.payload];
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
-        console.log(action.payload.data, "PAYLOADDDDDDDDDDD")
         state.products = action.payload.dataAfterDeletion;
         state.totalPages = action.payload.totalPages;
         state.currentPage = action.payload.currentPage;
@@ -84,12 +78,12 @@ export const productSlice = createSlice({
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.products = action.payload.data
       })
+      .addCase(changeLanguage, (state, action) => {
+        state.language = action.payload;
+      });
   },
 });
 
-export const { } = productSlice.actions;
-
 export const selectProducts = (state: any) => state.product.products;
-
 
 export default productSlice.reducer;

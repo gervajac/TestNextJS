@@ -20,9 +20,9 @@ export function CalculateValue() {
   };
 
   return (
-    <div className="flex flex-col justify-center text-black">
+    <div className="flex flex-col w-[1000px] items-center justify-center text-black">
       <label className="flex justify-center text-2xl text-semibold">
-        Calcular promedio de Precios por SECCION
+        {state.language === "ESP" ? "Calcular promedio de Precios por SECCION" : "Calculate average of prices by SECTION"}
       </label>
       <div className="flex flex-row">
         <select
@@ -39,7 +39,7 @@ export function CalculateValue() {
           <option value="Accesorios">Accesorios</option>
         </select>
         <span className="flex justify-center items-center space-x-3">
-          <h1 className="font-semibold texxt-xl">PROMEDIO:</h1>
+          <h1 className="font-semibold texxt-xl">{state.language === "ESP" ? "PROMEDIO" : "AVERAGE"}</h1>
           <h1 className="font-semibold text-3xl">
             {avgPrice ? avgPrice.toFixed(2) : 0}
           </h1>
