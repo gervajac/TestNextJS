@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Title } from './components/Title'
 import { ProductSection } from './components/ProductSection'
 import { Pagination } from './components/Pagination'
+import { CalculateValue } from './components/CalculateValue'
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <Title/>
       <Pagination/>
       <ProductSection/>
+      <CalculateValue/>
     </main>
   )
 }

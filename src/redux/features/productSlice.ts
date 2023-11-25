@@ -53,7 +53,8 @@ const initialState: any = {
   page: 1,
   currentPage: 1,
   totalPages: 1,
-  arrayPages: []
+  arrayPages: [],
+  totalProducts: []
 };
 
 
@@ -68,6 +69,7 @@ export const productSlice = createSlice({
         state.totalPages = action.payload.totalPages;
         state.currentPage = action.payload.currentPage;
         state.arrayPages = action.payload.numbersArray;
+        state.totalProducts = action.payload.totalProducts;
       })
       .addCase(addProduct.fulfilled, (state, action) => {
         state.products = [...state.products, action.payload];
