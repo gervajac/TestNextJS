@@ -4,14 +4,21 @@ import { updateProduct } from "@/redux/features/productSlice";
 import { Title } from "../../components/Title";
 import { useAppSelector, useAppDispatch } from "@/redux/hook";
 
+interface AgregarProductoProps {
+  product: string;
+  price: number;
+  section: string;
+  image: string;
+  brand: string;
+}
 
-const AgregarProducto: React.FC<any> = ({ params }: any) => {
+const AgregarProductos: React.FC<AgregarProductoProps> = ({ params }: any) => {
   const { id } = params;
   const state = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
   const [advice, setAdvice] = useState<any>("");
   const [empty, setEmpty] = useState(false);
-  const [productoInfo, setProductoInfo] = useState<any>({
+  const [productoInfo, setProductoInfo] = useState<AgregarProductoProps>({
     product: "",
     price: 0,
     section: "",
@@ -181,4 +188,4 @@ const AgregarProducto: React.FC<any> = ({ params }: any) => {
   );
 };
 
-export default AgregarProducto;
+export default AgregarProductos;
