@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Title } from './components/Title'
 import { ProductSection } from './components/ProductSection'
 import { Pagination } from './components/Pagination'

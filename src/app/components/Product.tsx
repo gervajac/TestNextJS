@@ -38,7 +38,7 @@ export function Product({ price, product, brand, section, image, id }: any) {
           </button>
           <Link href={`/agregarproducto/${id}`}>
             <Image src={Edit} className="w-[30px]" alt="Delete" />
-          </Link>{" "}
+          </Link>
         </span>
       </div>
     </section>
