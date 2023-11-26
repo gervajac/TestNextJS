@@ -12,7 +12,7 @@ interface EditarProductoProps {
   brand: string;
 }
 
-export default function EditarProductos({ params }: any) {
+const EditarProductos: React.FC<{ params: any }> = ({ params }) => {
   const { id } = params;
   const state = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
@@ -188,3 +188,4 @@ export default function EditarProductos({ params }: any) {
   );
 };
 
+export default EditarProductos;
