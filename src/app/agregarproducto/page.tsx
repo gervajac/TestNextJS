@@ -152,7 +152,7 @@ const AgregarProducto: React.FC<AgregarProductoProps> = () => {
             onChange={(e) => handleInput(e)}
           />
         </div>
-        {succes ? <h1>"El producto fue agregado correctamente"</h1> : null}
+        {succes ? <h1>El producto fue agregado correctamente</h1> : null}
         {empty ? <h1>Faltan completar campos</h1> : null}
         <button
           type="submit"
