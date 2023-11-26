@@ -71,7 +71,7 @@ const AgregarProducto: React.FC<AgregarProductoProps> = ({ params }: any) => {
   useEffect(() => {
     const fetching = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/data/${id}`);
+        const response = await fetch(`https://testnestapi.onrender.com/data/${id}`);
         console.log(response, "resp");
         const data = await response.json();
         setProductoInfo(data);

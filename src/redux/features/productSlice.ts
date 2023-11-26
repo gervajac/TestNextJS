@@ -1,25 +1,26 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
 export const fetchProducts = createAsyncThunk('product/fetchProducts', async ({ page }: any) => {
-  const response = await fetch(`http://localhost:3001/data/?page=${!page ? 1 : page}&perPage=5`);
+  const response = await fetch(`https://testnestapi.onrender.com/data/?page=${!page ? 1 : page}&perPage=5`);
   const data = await response.json();
   return data;
 });
 
 export const addProduct = createAsyncThunk('product/addProduct', async ({ productoInfo }: any, thunkAPI) => {
-  const response = await fetch('http://localhost:3001/data', {
+  const response = await fetch('https://testnestapi.onrender.com/data', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(productoInfo),
   });
+  console.log(response)
   const data = await response.json();
   return data;
 });
 
 export const deleteProduct = createAsyncThunk('product/deleteProduct', async ({ id, currentPage }: any, thunkAPI) => {
-  const response = await fetch(`http://localhost:3001/data/${id}/?page=${currentPage}&perPage=5`, {
+  const response = await fetch(`https://testnestapi.onrender.com/data/${id}/?page=${currentPage}&perPage=5`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -30,7 +31,7 @@ export const deleteProduct = createAsyncThunk('product/deleteProduct', async ({ 
 });
 
 export const updateProduct = createAsyncThunk('product/updateProduct', async ({ id, productoInfo }: any, thunkAPI) => {
-  const response = await fetch(`http://localhost:3001/data/${id}`, {
+  const response = await fetch(`https://testnestapi.onrender.com/data/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

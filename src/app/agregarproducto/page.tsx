@@ -16,7 +16,6 @@ const AgregarProducto: React.FC<AgregarProductoProps> = () => {
   const state = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
   const [succes, setSucces] = useState<any>(false);
-  const [advice, setAdvice] = useState<any>("");
   const [empty, setEmpty] = useState(false);
   const [productoInfo, setProductoInfo] = useState<AgregarProductoProps>({
     product: "",
@@ -25,31 +24,29 @@ const AgregarProducto: React.FC<AgregarProductoProps> = () => {
     image: "",
     brand: "",
   });
-  const [validation, setValidation] = useState<any>({
-    product: true,
-    price: true,
-    section: true,
-    image: true,
-    brand: true,
-  });
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setProductoInfo({ ...productoInfo, [name]: value });
-    setValidation({ ...validation, [name]: value !== "" ? false : true });
   };
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value, name } = e.target;
     setProductoInfo({ ...productoInfo, [name]: value });
-    setValidation({ ...validation, [name]: value !== "" ? false : true });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const isValid = Object.values(validation).every((value) => value);
 
-    if (!isValid) {
+    if (
+      productoInfo.product &&
+      productoInfo.brand &&
+      productoInfo.section &&
+      productoInfo.image &&
+      productoInfo.price !== 0 &&
+      productoInfo.price
+    ) {
+      console.log(productoInfo, "prod");
       dispatch(addProduct({ productoInfo: productoInfo }))
         .unwrap()
         .then((data) => {
@@ -60,16 +57,10 @@ const AgregarProducto: React.FC<AgregarProductoProps> = () => {
           console.error("Error al agregar el producto:", error);
         });
     } else {
-      const emptyFields = Object.keys(validation).filter(
-        (field) => validation[field]
-      );
+      console.log(productoInfo, "prod");
       setEmpty(true);
-      setAdvice(emptyFields);
-
     }
   };
-
-  console.log(validation);
 
   return (
     <section>
@@ -138,6 +129,9 @@ const AgregarProducto: React.FC<AgregarProductoProps> = () => {
             focus:shadow-outline"
             onChange={(e) => handleSelect(e)}
           >
+            <option className="text-gray-300" value="">
+              Elegir Seccion
+            </option>
             <option value="Blanqueria">Blanqueria</option>
             <option value="Jeans">Jeans</option>
             <option value="Remeras">Remeras</option>
@@ -159,9 +153,7 @@ const AgregarProducto: React.FC<AgregarProductoProps> = () => {
           />
         </div>
         {succes ? <h1>"El producto fue agregado correctamente"</h1> : null}
-        {empty ? (
-          <h1>Faltan completar los campos: {advice.join(", ")}</h1>
-        ) : null}
+        {empty ? <h1>Faltan completar campos</h1> : null}
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
