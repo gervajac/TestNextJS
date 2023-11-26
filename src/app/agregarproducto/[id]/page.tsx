@@ -12,7 +12,7 @@ interface AgregarProductoProps {
   brand: string;
 }
 
-const AgregarProducto: React.FC<AgregarProductoProps> = ({ params }: any) => {
+export function AgregarProducto({ params }: any) {
   const { id } = params;
   const state = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
