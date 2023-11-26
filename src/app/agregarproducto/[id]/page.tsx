@@ -188,4 +188,4 @@ export function AgregarProducto({ params }: any) {
   );
 };
 
-export default AgregarProducto;
+export { AgregarProducto as default };
