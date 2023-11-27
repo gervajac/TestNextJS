@@ -14,11 +14,11 @@ export function Product({ price, product, brand, section, image, id }: any) {
   };
 
   return (
-    <section className="flex bg-stone-400 flex-row h-[120px] border border-black">
+    <section className="flex bg-stone-400 w-[300px] md:w-full flex-row h-[120px] border border-black">
       <div className="flex w-[150px] h-full">
         <img className="flex w-full h-full" src={image}></img>
       </div>
-      <div className="flex flex-col w-full h-full">
+      <div className="flex flex-col w-[100px] md:w-full h-full">
         <div className="flex h-[30px] bg-stone-500 justify-end p-1">{section}</div>
         <div className="ml-2">
           <h1 className="text-2xl font-semibold">{product}</h1>

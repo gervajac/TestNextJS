@@ -11,7 +11,7 @@ export function ProductSection() {
 
   console.log(state.products);
   return (
-    <section className="flex space-y-1 justify-center flex-col w-[1000px]">
+    <section className="flex space-y-1 justify-center flex-col w-[300px]  md:w-[1000px]">
       {state.products.map((product: any) => (
         <Product
           key={product.id}
